@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Domain Flow to Dependency Graph</title>
+  <script src="js/orderly.js"></script>
+  <script>
+    window.onload = function () {
+      document.getElementById("button").onclick = function () {
+        try {
+          document.getElementById("dependence-graph").value = orderly.compile(document.getElementById("dfa").value);
+        } catch(e) {
+          document.getElementById("dependence-graph").value = e;
+        }
+      };
+    }
+  </script>
+</head>
+<body>
+<h1>Domain Flow Compiler</h1>
+<textarea id="dfa" rows="20" cols="50">
+object {
+  string name;
+  string description?;
+  string homepage /^http:/;
+  integer {1500,3000} invented;
+}*;
+  </textarea>
+<textarea id="dependence-graph" rows="20" cols="50"></textarea>
+<p>
+  <button id="button">convert</button>
+</p>
+<p><a href="http://github.com/stillwater-sc/dfc">project</a></p>
+</body>
+</html>
