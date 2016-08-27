@@ -1,0 +1,26 @@
+/*
+ * Full matrix-multiply domain flow program
+ */
+
+// input specification
+input ( (i,j,k) | 0 = i, 1 <= j,k <= N) {
+	a(i,j,k) = A[j,k];
+}
+input ( (i,j,k) | 0 = j, 1 <= i,k <= N) {
+	b(i,j,k) = B[k,i];
+}
+input ( (i,j,k) | 0 = k, 1 <= i,j <= N) {
+	c(i,j,k) = C[j,i];
+}
+
+// domain of computation
+compute ( (i,j,k) | 1 <= i,j,k <= N) {
+	a(i,j,k) = a(i-1,j,k);
+	b(i,j,k) = b(i,j-1,k);
+	c(i,j,k) = c(i,j,k-1) + a(i-1,j,k) * b(i,j-1,k);
+}
+
+// output specification
+output ( (i,j,k) | N = k, 1 <= i,j <= N) {
+	C[j,i] = c(i,j,k);
+}
