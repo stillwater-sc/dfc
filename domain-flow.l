@@ -2,10 +2,11 @@ digit                       [0-9]
 id                          [a-zA-Z][a-zA-Z0-9]*
 
 %%
-"//".*                      /* ignore comment */
+"//".*                                      return yytext   /* ignore single-line comment */
+"/*""/"*([^*/]|[^*]"/"|"*"[^/])*"*"*"*/"    return yytext   /* ignore multi-line comment */
 "var"                       return 'VAR';
 "null"                      return 'NUL';
-{digit}+                    return 'NATLITERAL';
+{digit}+                    return 'INT_LITERAL';
 {id}                        return 'IDENTIFIER';
 ":="                        return 'ASSIGN';
 "<="						return 'LE';
