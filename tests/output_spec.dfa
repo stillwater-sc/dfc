@@ -1,0 +1,12 @@
+/*
+ * test:   output_spec.dfa
+ * author: Theodore Omtzigt
+ * date:   8/27/2016
+ */
+
+// output specification
+output ( (i,j,k) | N = k, 1 <= i,j <= N) {
+	C[j,i] = c(i,j,k);
+}
+
+// end of output specification

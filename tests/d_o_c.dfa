@@ -1,0 +1,14 @@
+/*
+ * test:   d_o_c.dfa
+ * author: Theodore Omtzigt
+ * date:   8/27/2016
+ */
+
+// domain of computation
+compute ( (i,j,k) | 1 <= i,j,k <= N) {
+	a(i,j,k) = a(i-1,j,k);
+	b(i,j,k) = b(i,j-1,k);
+	c(i,j,k) = c(i,j,k-1) + a(i-1,j,k) * b(i,j-1,k);
+}
+
+// end of domain of computation specification

@@ -1,0 +1,18 @@
+/*
+ * test:   input_spec.dfa
+ * author: Theodore Omtzigt
+ * date:   8/27/2016
+ */
+
+// input specification
+input ( (i,j,k) | 0 = i, 1 <= j,k <= N) {
+	a(i,j,k) = A[j,k];
+}
+input ( (i,j,k) | 0 = j, 1 <= i,k <= N) {
+	b(i,j,k) = B[k,i];
+}
+input ( (i,j,k) | 0 = k, 1 <= i,j <= N) {
+	c(i,j,k) = C[j,i];
+}
+
+// end of input specification
