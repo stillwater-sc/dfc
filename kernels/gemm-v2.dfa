@@ -1,0 +1,33 @@
+/*
+ * Full matrix-multiply domain flow program kernel
+ *
+ * All arguments are abstract handles.
+ */
+
+kernel<T> gemm (dense_matrix<T> A, B, C, D) {
+    index_space (i,j,k);
+
+    // input interfaces define a projection into distributed space
+    input ( 0 = i, 1 <= j,k <= N) {
+	    a(i,j,k) = A[j,k];
+    }
+    input ( 0 = j, 1 <= i,k <= N) {
+	    b(i,j,k) = B[k,i];
+    }
+    input ( 0 = k, 1 <= i,j <= N) {
+	    c(i,j,k) = C[j,i];
+    }
+
+    // domain of computation
+    compute ( 1 <= i,j,k <= N ) {
+	    a(i,j,k) = a(i-1,j,k);
+	    b(i,j,k) = b(i,j-1,k);
+	    c(i,j,k) = c(i,j,k-1) + a(i-1,j,k) * b(i,j-1,k);
+    }
+
+    // output interface defines a projection back into flat memory
+    output ( N = k, 1 <= i,j <= N) {
+	    D[j,i] = c(i,j,k);
+    }
+
+}

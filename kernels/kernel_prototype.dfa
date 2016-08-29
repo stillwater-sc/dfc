@@ -1,0 +1,1 @@
+kernel<T> gemm (dense_matrix<T> A, B, C, D)
