@@ -1,5 +1,5 @@
 digit                       [0-9]
-id                          [a-zA-Z][a-zA-Z0-9]*
+id                          [a-zA-Z_][a-zA-Z0-9_]*
 
 %%
 "//".*                                      return yytext   /* ignore single-line comment */
