@@ -2,10 +2,13 @@ digit                       [0-9]
 id                          [a-zA-Z_][a-zA-Z0-9_]*
 
 %%
-"//".*                                      return yytext   /* ignore single-line comment */
-"/*""/"*([^*/]|[^*]"/"|"*"[^/])*"*"*"*/"    return yytext   /* ignore multi-line comment */
+"//".*                      /* ignore single-line comment */
+"/*""/"*([^*/]|[^*]"/"|"*"[^/])*"*"*"*/"    /* ignore multi-line comment */
 "var"                       return 'VAR';
 "null"                      return 'NUL';
+"input"						return 'INPUT';       /* temporary keyword tokens */
+"compute"					return 'COMPUTE';
+"output"				    return 'OUTPUT';
 {digit}+                    return 'INT_LITERAL';
 {id}                        return 'IDENTIFIER';
 ":="                        return 'ASSIGN';
