@@ -22,100 +22,95 @@
 %left	'+' '-'
 %left	'*' '/' '%'
 
+%start compute_statement
+
 %%
 
 compute_statement
-		: COMPUTE '(' set_definition ')' recurrence_specification
+		: COMPUTE '(' set_definition ')' '{' recurrence_statements '}'
+		;
 
 set_definition
 		: '(' dimension_list ')' '|' constraint_list
+		;
 
 dimension_list
 		: Identifier
 		| dimension_list ',' Identifier
+		;
 
 constraint_list
-		: expression
-		| constraint_list ',' expression
+		: constraint
+		| constraint_list ',' constraint
+		;
 
-recurrence_specification
-		: '{' recurrence_statements '}'
+constraint
+        : cexpression 'EQ' cexpression
+        | cexpression 'LE' cexpression
+        | cexpression 'GE' cexpression
+        | cexpression '<' cexpression
+        | cexpression '>' cexpression
+        ;
+
+cexpression
+		: constraint_equation
+		;
+
+constraint_equation
+		: Constant
+		| Identifier
+		| constraint_equation '+' constraint_equation
+		| constraint_equation '-' constraint_equation
+		| constraint_equation '*' constraint_equation
+		| constraint_equation '/' constraint_equation
+		| constraint_equation '%' constraint_equation
+		;
 
 recurrence_statements
-		: /* empty */
-		| recurrence_statement
+		: recurrence_statement
 		| recurrence_statements recurrence_statement
+		;
 
 recurrence_statement
-		: input_sa_statement
-		| compute_sa_statement
-		| output_sa_statement
-
-input_sa_statement
-		: domain_flow_var_lhs '=' ram_var ';'
-
-output_sa_statement
-		: ram_var '=' domain_flow_var_rhs ';'
+		: compute_sa_statement
+		;
 
 compute_sa_statement
 		: domain_flow_var_lhs '=' recurrence_expression ';'
+		;
 
 domain_flow_var_lhs
 		: Identifier '(' index_space_dimension_list ')'
-
-ram_var
-		: Identifier '[' index_space_dimension_list ']'
+		;
 
 index_space_dimension_list
 		: Identifier
 		| index_space_dimension_list ',' Identifier
-
-domain_flow_var_rhs
-		: Identifier '(' index_space_expression_list ')'
+		;
 
 recurrence_expression
 		: domain_flow_binary
+		;
 
 domain_flow_binary
 		: domain_flow_var_rhs
 		| Constant
-		| Identifier '(' optional_argument_list ')'
 		| domain_flow_binary '+' domain_flow_binary
 		| domain_flow_binary '*' domain_flow_binary
+		;
+
+domain_flow_var_rhs
+		: Identifier '(' index_space_expression_list ')'
+		;
 
 index_space_expression_list
-		: binary
-		| index_space_expression_list ',' binary
+		: index_binary
+		| index_space_expression_list ',' index_binary
+		;
 
-expression
-		: binary
-		| expression ',' binary
-
-binary
+index_binary
 		: Identifier
 		| Constant
-		| '(' expression ')'
-		| Identifier '(' optional_argument_list ')'
-		| binary '+' binary
-		| binary '-' binary
-		| binary '*' binary
-		| binary '/' binary
-		| binary '%' binary
-		| binary '>' binary
-		| binary '<' binary
-		| binary 'GE' binary
-		| binary 'LE' binary
-		| binary 'EQ' binary
-		| binary 'NE' binary
-		| binary '&' binary
-		| binary '|' binary
-		| binary '^' binary
-		| Identifier '=' binary
-
-optional_argument_list
-		: /* no arguments */
-		| argument_list
-
-argument_list
-		: binary
-		| argument_list ',' binary		
+		| index_binary '+' index_binary
+		| index_binary '-' index_binary
+		;	
