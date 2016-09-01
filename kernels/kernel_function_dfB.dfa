@@ -1,0 +1,48 @@
+kernel<T> gemm (dense_matrix<T> A, B, C, D) {
+    index_space (i,j,k);
+    dfvar a,b,c;
+
+    /*
+     * A LHS domain flow variable will always be of the form:
+     *    var(i,j,k)
+     * Otherwise stated, highly redundant, and potentially error
+     * inducing and confusing, when a designer would use expressions
+     * in the index_space variables.
+     *
+     * In this version of the language, we sidestep that problem
+     * and articulate the LHS as a recurrence variable label.
+     * Conceptually, the statement
+     * a: a(i-1,j,k);
+     * represents this recurrence equation
+     * a(i,j,k) = a(i-1,j,k);
+     * with the key assumption that the LHS is always (i,j,k)
+     *
+     * This works the same for the input interface definition,
+     * but in the output interface definition, the domain flow
+     * variable is a RHS variable and thus should still be able
+     * to articulate an arbitrary affine transformation on its
+     * index_space variables, to specify a shear or contraction. 
+     */
+    // input interfaces define a projection into distributed space
+    input ( 0 = i, 1 <= j,k <= N) {
+	    a: A[j,k];
+    }
+    input ( 0 = j, 1 <= i,k <= N) {
+	    b: B[k,i];
+    }
+    input ( 0 = k, 1 <= i,j <= N) {
+	    c: C[j,i];
+    }
+
+    // domain of computation
+    compute ( 1 <= i,j,k <= N ) {
+	    a: a(i-1,j,k);
+	    b: b(i,j-1,k);
+	    c: c(i,j,k-1) + a(i-1,j,k) * b(i,j-1,k);
+    }
+
+    // output interface defines a projection back into flat memory
+    output ( N = k, 1 <= i,j <= N) {
+	    D[j,i] = c(i,j,k);
+    }
+}
