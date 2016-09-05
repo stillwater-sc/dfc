@@ -1,4 +1,3 @@
-
 %token Identifier
 %token Constant
 %token INT_TYPE FLOAT_TYPE DOUBLE_TYPE UNUM_TYPE
@@ -7,7 +6,7 @@
 %token '(' ')' '{' '}' '[' ']'
 %token '+' '-' '*' '/' '%'
 %token '>' '<'
-%token GE LE EQ NQ
+%token GE LE EQ NE
 %token '&' '|' '^'
 %token '='
 
@@ -46,10 +45,19 @@ constraint_list
 
 constraint
         : cexpression 'EQ' cexpression
+        | cexpression 'NQ' cexpression
+        | cexpression 'LT' cexpression
+        | cexpression 'GT' cexpression
         | cexpression 'LE' cexpression
         | cexpression 'GE' cexpression
-        | cexpression '<' cexpression
-        | cexpression '>' cexpression
+        | cexpression 'LT' dimension_list 'LT' cexpression
+        | cexpression 'LT' dimension_list 'LE' cexpression
+        | cexpression 'LE' dimension_list 'LT' cexpression
+        | cexpression 'LE' dimension_list 'LE' cexpression
+        | cexpression 'GT' dimension_list 'GT' cexpression
+        | cexpression 'GT' dimension_list 'GE' cexpression
+        | cexpression 'GE' dimension_list 'GT' cexpression
+        | cexpression 'GE' dimension_list 'GE' cexpression
         ;
 
 cexpression

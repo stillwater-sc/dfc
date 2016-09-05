@@ -5,7 +5,7 @@ id                          [a-zA-Z_][a-zA-Z0-9_]*
 "//".*                      /* ignore single-line comment */
 "/*""/"*([^*/]|[^*]"/"|"*"[^/])*"*"*"*/"    /* ignore multi-line comment */
 "var"                       return 'VAR';
-"null"                      return 'NUL';
+"null"                      return 'NIL';
 "input"						return 'INPUT';       /* temporary keyword tokens */
 "compute"					return 'COMPUTE';
 "output"				    return 'OUTPUT';
@@ -14,23 +14,24 @@ id                          [a-zA-Z_][a-zA-Z0-9_]*
 ":="                        return 'ASSIGN';
 "<="						return 'LE';
 ">="						return 'GE';
-"=="						return 'EQUAL';
+"=="						return 'EQ';
+"!="                        return 'NE';
 "<"							return 'LT';
 ">"							return 'GT';
-"="							return 'CONSTRAINT_EQ'
-"{"							return 'LCURLY';
-"}"							return 'RCURLY';
-"("							return 'LPAREN';
-")"							return 'RPAREN';
-"["							return 'LBRACKET';
-"]"							return 'RBRACKET';
-","							return 'COMMA';
-"|"							return 'BAR';
-"+"							return 'PLUS';
-"-"							return 'MINUS';
-"*"							return 'STAR';
-"/"							return 'SLASH';
-"%"							return 'PERCENT';
+"="							return '='
+"{"							return '{';
+"}"							return '}';
+"("							return '(';
+")"							return ')';
+"["							return '[';
+"]"							return ']';
+","							return ',';
+"|"							return '|';
+"+"							return '+';
+"-"							return '-';
+"*"							return '*';
+"/"							return '/';
+"%"							return '%';
 ";"                         return 'SEMICOLON';
 \s+                         /* skip whitespace */
 "."                         throw 'Illegal character';
