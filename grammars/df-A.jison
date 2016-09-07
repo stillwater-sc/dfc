@@ -2,7 +2,7 @@
 %token Constant
 %token INT_TYPE FLOAT_TYPE DOUBLE_TYPE UNUM_TYPE
 %token INPUT COMPUTE OUTPUT
-%token ';'
+%token SEMICOLON
 %token '(' ')' '{' '}' '[' ']'
 %token '+' '-' '*' '/' '%'
 %token '>' '<'
@@ -40,7 +40,7 @@ dimension_list
 
 constraint_list
 		: constraint
-		| constraint_list ',' constraint
+		| constraint_list SEMICOLON constraint
 		;
 
 constraint
