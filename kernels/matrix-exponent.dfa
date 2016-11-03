@@ -26,21 +26,16 @@ kernel<T> gemm (domain<T> a, b, c) {
 
 int main() {
     dense_matrix<float64> A, A4;
-    domain<float64> a,a2,a4,d;
+    domain<float64> a,a2,a3, a4;
 
     // input interfaces define a projection into distributed space
     input ( 0 = i, 1 <= j,k <= N) {
 	    a: A[j,k];
     }
-    input ( 0 = j, 1 <= i,k <= N) {
-	    b: B[k,i];
-    }
-    input ( 0 = k, 1 <= i,j <= N) {
-	    c: C[j,i];
-    }
 
     // kernels compute events in a distributed index space
     gemm<float64> (a, a, a2)
+    gemm<float64> (a, a2, a3)
     gemm<float64> (a2, a2, a4)
 
     // output interfaces define a projection back into flat memory
