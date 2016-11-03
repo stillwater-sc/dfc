@@ -4,7 +4,7 @@
  * All arguments are abstract handles.
  */
 
-kernel<T> gemm (domain<T> a,b,c) {
+kernel<T> gemm (domain<T> a, b, c) {
     index_space (i,j,k);
 
     // function definitions for localized PE processing
@@ -21,10 +21,12 @@ kernel<T> gemm (domain<T> a,b,c) {
 	    b: b[i,j-1,k];
 	    c: mac(a[i-1,j,k], b[i,j-1,k], c[i,j,k-1]);
     }
+
 }
 
 int main() {
-    dense_matrix<float64> A, B, C, D;
+    dense_matrix<float64> A, A4;
+    domain<float64> a,a2,a4,d;
 
     // input interfaces define a projection into distributed space
     input ( 0 = i, 1 <= j,k <= N) {
@@ -37,10 +39,12 @@ int main() {
 	    c: C[j,i];
     }
 
-    gemm<float64> (a,b,c)
+    // kernels compute events in a distributed index space
+    gemm<float64> (a, a, a2)
+    gemm<float64> (a2, a2, a4)
 
-    // output interface defines a projection back into flat memory
-    output ( N = k, 1 <= i,j <= N) {
-	    D[j,i] = c[i,j,k];
+    // output interfaces define a projection back into flat memory
+    output ( N = k, 1 <= i <= N, 1 <= j <= N) {
+	    A4[j,i] = a4[i,j,k];
     }
 }
