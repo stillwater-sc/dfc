@@ -21,7 +21,6 @@ kernel<T> gemm (domain<T> a, b, c) {
 	    b: b[i,j-1,k];
 	    c: mac(a[i-1,j,k], b[i,j-1,k], c[i,j,k-1]);
     }
-
 }
 
 int main() {

@@ -1,0 +1,14 @@
+input_sa_statement
+		: domain_flow_var_lhs '=' ram_var ';'
+		;
+
+output_sa_statement
+		: ram_var '=' domain_flow_var_rhs ';'
+		;
+
+
+ram_var
+		: Identifier '[' index_space_dimension_list ']'
+		;
+
+
