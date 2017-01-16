@@ -1,0 +1,1568 @@
+Terminals unused in grammar
+
+   FLOAT_TYPE
+   DOUBLE_TYPE
+   UNUM_TYPE
+   INPUT
+   COMPUTE
+   OUTPUT
+   '['
+   ']'
+   GE
+   LE
+   EQ
+   NQ
+   NE
+
+
+State 69 conflicts: 4 shift/reduce
+State 72 conflicts: 4 shift/reduce
+State 73 conflicts: 4 shift/reduce
+State 74 conflicts: 4 shift/reduce
+State 75 conflicts: 4 shift/reduce
+State 76 conflicts: 4 shift/reduce
+State 77 conflicts: 4 shift/reduce
+State 78 conflicts: 4 shift/reduce
+State 79 conflicts: 4 shift/reduce
+State 80 conflicts: 4 shift/reduce
+State 81 conflicts: 4 shift/reduce
+State 82 conflicts: 14 shift/reduce
+State 83 conflicts: 14 shift/reduce
+State 84 conflicts: 14 shift/reduce
+State 85 conflicts: 14 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: definitions
+
+    2 definitions: definition
+    3            | definitions definition
+
+    4 definition: function_definition
+    5           | INT_TYPE function_definition
+    6           | declaration
+
+    7 function_definition: Identifier '(' optional_parameter_list ')' parameter_declarations compound_statement
+
+    8 optional_parameter_list: /* empty */
+    9                        | parameter_list
+
+   10 parameter_list: Identifier
+   11               | parameter_list ',' Identifier
+
+   12 parameter_declarations: /* empty */
+   13                       | parameter_declarations parameter_declaration
+
+   14 parameter_declaration: INT_TYPE parameter_declarator_list ';'
+
+   15 parameter_declarator_list: Identifier
+   16                          | parameter_declarator_list ',' Identifier
+
+   17 compound_statement: '{' declarations statements '}'
+
+   18 declarations: /* empty */
+   19             | declarations declaration
+
+   20 declaration: INT_TYPE declarator_list ';'
+
+   21 declarator_list: Identifier
+   22                | declarator_list ',' Identifier
+
+   23 statements: /* empty */
+   24           | statements statement
+
+   25 statement: expression ';'
+   26          | ';'
+   27          | compound_statement
+
+   28 expression: binary
+   29           | expression ',' binary
+
+   30 binary: Identifier
+   31       | Constant
+   32       | '(' expression ')'
+   33       | Identifier '(' optional_argument_list ')'
+   34       | binary '+' binary
+   35       | binary '-' binary
+   36       | binary '*' binary
+   37       | binary '/' binary
+   38       | binary '%' binary
+   39       | binary '>' binary
+   40       | binary '<' binary
+   41       | binary 'G' binary
+   42       | binary 'L' binary
+   43       | binary 'E' binary
+   44       | binary 'N' binary
+   45       | binary '&' binary
+   46       | binary '|' binary
+   47       | binary '^' binary
+   48       | Identifier '=' binary
+
+   49 optional_argument_list: /* empty */
+   50                       | argument_list
+
+   51 argument_list: binary
+   52              | argument_list ',' binary
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'%' (37) 38
+'&' (38) 45
+'(' (40) 7 32 33
+')' (41) 7 32 33
+'*' (42) 36
+'+' (43) 34
+',' (44) 11 16 22 29 52
+'-' (45) 35
+'/' (47) 37
+';' (59) 14 20 25 26
+'<' (60) 40
+'=' (61) 48
+'>' (62) 39
+'E' (69) 43
+'G' (71) 41
+'L' (76) 42
+'N' (78) 44
+'[' (91)
+']' (93)
+'^' (94) 47
+'{' (123) 17
+'|' (124) 46
+'}' (125) 17
+error (256)
+Identifier (258) 7 10 11 15 16 21 22 30 33 48
+Constant (259) 31
+INT_TYPE (260) 5 14 20
+FLOAT_TYPE (261)
+DOUBLE_TYPE (262)
+UNUM_TYPE (263)
+INPUT (264)
+COMPUTE (265)
+OUTPUT (266)
+GE (267)
+LE (268)
+EQ (269)
+NQ (270)
+NE (271)
+
+
+Nonterminals, with rules where they appear
+
+$accept (40)
+    on left: 0
+program (41)
+    on left: 1, on right: 0
+definitions (42)
+    on left: 2 3, on right: 1 3
+definition (43)
+    on left: 4 5 6, on right: 2 3
+function_definition (44)
+    on left: 7, on right: 4 5
+optional_parameter_list (45)
+    on left: 8 9, on right: 7
+parameter_list (46)
+    on left: 10 11, on right: 9 11
+parameter_declarations (47)
+    on left: 12 13, on right: 7 13
+parameter_declaration (48)
+    on left: 14, on right: 13
+parameter_declarator_list (49)
+    on left: 15 16, on right: 14 16
+compound_statement (50)
+    on left: 17, on right: 7 27
+declarations (51)
+    on left: 18 19, on right: 17 19
+declaration (52)
+    on left: 20, on right: 6 19
+declarator_list (53)
+    on left: 21 22, on right: 20 22
+statements (54)
+    on left: 23 24, on right: 17 24
+statement (55)
+    on left: 25 26 27, on right: 24
+expression (56)
+    on left: 28 29, on right: 25 29 32
+binary (57)
+    on left: 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
+    48, on right: 28 29 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48
+    51 52
+optional_argument_list (58)
+    on left: 49 50, on right: 33
+argument_list (59)
+    on left: 51 52, on right: 50 52
+
+
+state 0
+
+    0 $accept: . program $end
+
+    Identifier  shift, and go to state 1
+    INT_TYPE    shift, and go to state 2
+
+    program              go to state 3
+    definitions          go to state 4
+    definition           go to state 5
+    function_definition  go to state 6
+    declaration          go to state 7
+
+
+state 1
+
+    7 function_definition: Identifier . '(' optional_parameter_list ')' parameter_declarations compound_statement
+
+    '('  shift, and go to state 8
+
+
+state 2
+
+    5 definition: INT_TYPE . function_definition
+   20 declaration: INT_TYPE . declarator_list ';'
+
+    Identifier  shift, and go to state 9
+
+    function_definition  go to state 10
+    declarator_list      go to state 11
+
+
+state 3
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 12
+
+
+state 4
+
+    1 program: definitions .
+    3 definitions: definitions . definition
+
+    Identifier  shift, and go to state 1
+    INT_TYPE    shift, and go to state 2
+
+    $default  reduce using rule 1 (program)
+
+    definition           go to state 13
+    function_definition  go to state 6
+    declaration          go to state 7
+
+
+state 5
+
+    2 definitions: definition .
+
+    $default  reduce using rule 2 (definitions)
+
+
+state 6
+
+    4 definition: function_definition .
+
+    $default  reduce using rule 4 (definition)
+
+
+state 7
+
+    6 definition: declaration .
+
+    $default  reduce using rule 6 (definition)
+
+
+state 8
+
+    7 function_definition: Identifier '(' . optional_parameter_list ')' parameter_declarations compound_statement
+
+    Identifier  shift, and go to state 14
+
+    $default  reduce using rule 8 (optional_parameter_list)
+
+    optional_parameter_list  go to state 15
+    parameter_list           go to state 16
+
+
+state 9
+
+    7 function_definition: Identifier . '(' optional_parameter_list ')' parameter_declarations compound_statement
+   21 declarator_list: Identifier .
+
+    '('  shift, and go to state 8
+
+    $default  reduce using rule 21 (declarator_list)
+
+
+state 10
+
+    5 definition: INT_TYPE function_definition .
+
+    $default  reduce using rule 5 (definition)
+
+
+state 11
+
+   20 declaration: INT_TYPE declarator_list . ';'
+   22 declarator_list: declarator_list . ',' Identifier
+
+    ';'  shift, and go to state 17
+    ','  shift, and go to state 18
+
+
+state 12
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 13
+
+    3 definitions: definitions definition .
+
+    $default  reduce using rule 3 (definitions)
+
+
+state 14
+
+   10 parameter_list: Identifier .
+
+    $default  reduce using rule 10 (parameter_list)
+
+
+state 15
+
+    7 function_definition: Identifier '(' optional_parameter_list . ')' parameter_declarations compound_statement
+
+    ')'  shift, and go to state 19
+
+
+state 16
+
+    9 optional_parameter_list: parameter_list .
+   11 parameter_list: parameter_list . ',' Identifier
+
+    ','  shift, and go to state 20
+
+    $default  reduce using rule 9 (optional_parameter_list)
+
+
+state 17
+
+   20 declaration: INT_TYPE declarator_list ';' .
+
+    $default  reduce using rule 20 (declaration)
+
+
+state 18
+
+   22 declarator_list: declarator_list ',' . Identifier
+
+    Identifier  shift, and go to state 21
+
+
+state 19
+
+    7 function_definition: Identifier '(' optional_parameter_list ')' . parameter_declarations compound_statement
+
+    $default  reduce using rule 12 (parameter_declarations)
+
+    parameter_declarations  go to state 22
+
+
+state 20
+
+   11 parameter_list: parameter_list ',' . Identifier
+
+    Identifier  shift, and go to state 23
+
+
+state 21
+
+   22 declarator_list: declarator_list ',' Identifier .
+
+    $default  reduce using rule 22 (declarator_list)
+
+
+state 22
+
+    7 function_definition: Identifier '(' optional_parameter_list ')' parameter_declarations . compound_statement
+   13 parameter_declarations: parameter_declarations . parameter_declaration
+
+    INT_TYPE  shift, and go to state 24
+    '{'       shift, and go to state 25
+
+    parameter_declaration  go to state 26
+    compound_statement     go to state 27
+
+
+state 23
+
+   11 parameter_list: parameter_list ',' Identifier .
+
+    $default  reduce using rule 11 (parameter_list)
+
+
+state 24
+
+   14 parameter_declaration: INT_TYPE . parameter_declarator_list ';'
+
+    Identifier  shift, and go to state 28
+
+    parameter_declarator_list  go to state 29
+
+
+state 25
+
+   17 compound_statement: '{' . declarations statements '}'
+
+    $default  reduce using rule 18 (declarations)
+
+    declarations  go to state 30
+
+
+state 26
+
+   13 parameter_declarations: parameter_declarations parameter_declaration .
+
+    $default  reduce using rule 13 (parameter_declarations)
+
+
+state 27
+
+    7 function_definition: Identifier '(' optional_parameter_list ')' parameter_declarations compound_statement .
+
+    $default  reduce using rule 7 (function_definition)
+
+
+state 28
+
+   15 parameter_declarator_list: Identifier .
+
+    $default  reduce using rule 15 (parameter_declarator_list)
+
+
+state 29
+
+   14 parameter_declaration: INT_TYPE parameter_declarator_list . ';'
+   16 parameter_declarator_list: parameter_declarator_list . ',' Identifier
+
+    ';'  shift, and go to state 31
+    ','  shift, and go to state 32
+
+
+state 30
+
+   17 compound_statement: '{' declarations . statements '}'
+   19 declarations: declarations . declaration
+
+    INT_TYPE  shift, and go to state 33
+
+    $default  reduce using rule 23 (statements)
+
+    declaration  go to state 34
+    statements   go to state 35
+
+
+state 31
+
+   14 parameter_declaration: INT_TYPE parameter_declarator_list ';' .
+
+    $default  reduce using rule 14 (parameter_declaration)
+
+
+state 32
+
+   16 parameter_declarator_list: parameter_declarator_list ',' . Identifier
+
+    Identifier  shift, and go to state 36
+
+
+state 33
+
+   20 declaration: INT_TYPE . declarator_list ';'
+
+    Identifier  shift, and go to state 37
+
+    declarator_list  go to state 11
+
+
+state 34
+
+   19 declarations: declarations declaration .
+
+    $default  reduce using rule 19 (declarations)
+
+
+state 35
+
+   17 compound_statement: '{' declarations statements . '}'
+   24 statements: statements . statement
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    ';'         shift, and go to state 40
+    '('         shift, and go to state 41
+    '{'         shift, and go to state 25
+    '}'         shift, and go to state 42
+
+    compound_statement  go to state 43
+    statement           go to state 44
+    expression          go to state 45
+    binary              go to state 46
+
+
+state 36
+
+   16 parameter_declarator_list: parameter_declarator_list ',' Identifier .
+
+    $default  reduce using rule 16 (parameter_declarator_list)
+
+
+state 37
+
+   21 declarator_list: Identifier .
+
+    $default  reduce using rule 21 (declarator_list)
+
+
+state 38
+
+   30 binary: Identifier .
+   33       | Identifier . '(' optional_argument_list ')'
+   48       | Identifier . '=' binary
+
+    '('  shift, and go to state 47
+    '='  shift, and go to state 48
+
+    $default  reduce using rule 30 (binary)
+
+
+state 39
+
+   31 binary: Constant .
+
+    $default  reduce using rule 31 (binary)
+
+
+state 40
+
+   26 statement: ';' .
+
+    $default  reduce using rule 26 (statement)
+
+
+state 41
+
+   32 binary: '(' . expression ')'
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    expression  go to state 49
+    binary      go to state 46
+
+
+state 42
+
+   17 compound_statement: '{' declarations statements '}' .
+
+    $default  reduce using rule 17 (compound_statement)
+
+
+state 43
+
+   27 statement: compound_statement .
+
+    $default  reduce using rule 27 (statement)
+
+
+state 44
+
+   24 statements: statements statement .
+
+    $default  reduce using rule 24 (statements)
+
+
+state 45
+
+   25 statement: expression . ';'
+   29 expression: expression . ',' binary
+
+    ';'  shift, and go to state 50
+    ','  shift, and go to state 51
+
+
+state 46
+
+   28 expression: binary .
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    '&'  shift, and go to state 59
+    '|'  shift, and go to state 60
+    '^'  shift, and go to state 61
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    $default  reduce using rule 28 (expression)
+
+
+state 47
+
+   33 binary: Identifier '(' . optional_argument_list ')'
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    $default  reduce using rule 49 (optional_argument_list)
+
+    binary                  go to state 66
+    optional_argument_list  go to state 67
+    argument_list           go to state 68
+
+
+state 48
+
+   48 binary: Identifier '=' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 69
+
+
+state 49
+
+   29 expression: expression . ',' binary
+   32 binary: '(' expression . ')'
+
+    ')'  shift, and go to state 70
+    ','  shift, and go to state 51
+
+
+state 50
+
+   25 statement: expression ';' .
+
+    $default  reduce using rule 25 (statement)
+
+
+state 51
+
+   29 expression: expression ',' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 71
+
+
+state 52
+
+   34 binary: binary '+' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 72
+
+
+state 53
+
+   35 binary: binary '-' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 73
+
+
+state 54
+
+   36 binary: binary '*' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 74
+
+
+state 55
+
+   37 binary: binary '/' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 75
+
+
+state 56
+
+   38 binary: binary '%' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 76
+
+
+state 57
+
+   39 binary: binary '>' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 77
+
+
+state 58
+
+   40 binary: binary '<' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 78
+
+
+state 59
+
+   45 binary: binary '&' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 79
+
+
+state 60
+
+   46 binary: binary '|' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 80
+
+
+state 61
+
+   47 binary: binary '^' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 81
+
+
+state 62
+
+   41 binary: binary 'G' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 82
+
+
+state 63
+
+   42 binary: binary 'L' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 83
+
+
+state 64
+
+   43 binary: binary 'E' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 84
+
+
+state 65
+
+   44 binary: binary 'N' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 85
+
+
+state 66
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+   51 argument_list: binary .
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    '&'  shift, and go to state 59
+    '|'  shift, and go to state 60
+    '^'  shift, and go to state 61
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    $default  reduce using rule 51 (argument_list)
+
+
+state 67
+
+   33 binary: Identifier '(' optional_argument_list . ')'
+
+    ')'  shift, and go to state 86
+
+
+state 68
+
+   50 optional_argument_list: argument_list .
+   52 argument_list: argument_list . ',' binary
+
+    ','  shift, and go to state 87
+
+    $default  reduce using rule 50 (optional_argument_list)
+
+
+state 69
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+   48       | Identifier '=' binary .
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    '&'  shift, and go to state 59
+    '|'  shift, and go to state 60
+    '^'  shift, and go to state 61
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    'G'       [reduce using rule 48 (binary)]
+    'L'       [reduce using rule 48 (binary)]
+    'E'       [reduce using rule 48 (binary)]
+    'N'       [reduce using rule 48 (binary)]
+    $default  reduce using rule 48 (binary)
+
+
+state 70
+
+   32 binary: '(' expression ')' .
+
+    $default  reduce using rule 32 (binary)
+
+
+state 71
+
+   29 expression: expression ',' binary .
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    '&'  shift, and go to state 59
+    '|'  shift, and go to state 60
+    '^'  shift, and go to state 61
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    $default  reduce using rule 29 (expression)
+
+
+state 72
+
+   34 binary: binary . '+' binary
+   34       | binary '+' binary .
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    'G'       [reduce using rule 34 (binary)]
+    'L'       [reduce using rule 34 (binary)]
+    'E'       [reduce using rule 34 (binary)]
+    'N'       [reduce using rule 34 (binary)]
+    $default  reduce using rule 34 (binary)
+
+
+state 73
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   35       | binary '-' binary .
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    'G'       [reduce using rule 35 (binary)]
+    'L'       [reduce using rule 35 (binary)]
+    'E'       [reduce using rule 35 (binary)]
+    'N'       [reduce using rule 35 (binary)]
+    $default  reduce using rule 35 (binary)
+
+
+state 74
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   36       | binary '*' binary .
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    'G'       [reduce using rule 36 (binary)]
+    'L'       [reduce using rule 36 (binary)]
+    'E'       [reduce using rule 36 (binary)]
+    'N'       [reduce using rule 36 (binary)]
+    $default  reduce using rule 36 (binary)
+
+
+state 75
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   37       | binary '/' binary .
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    'G'       [reduce using rule 37 (binary)]
+    'L'       [reduce using rule 37 (binary)]
+    'E'       [reduce using rule 37 (binary)]
+    'N'       [reduce using rule 37 (binary)]
+    $default  reduce using rule 37 (binary)
+
+
+state 76
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   38       | binary '%' binary .
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    'G'       [reduce using rule 38 (binary)]
+    'L'       [reduce using rule 38 (binary)]
+    'E'       [reduce using rule 38 (binary)]
+    'N'       [reduce using rule 38 (binary)]
+    $default  reduce using rule 38 (binary)
+
+
+state 77
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   39       | binary '>' binary .
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    'G'       [reduce using rule 39 (binary)]
+    'L'       [reduce using rule 39 (binary)]
+    'E'       [reduce using rule 39 (binary)]
+    'N'       [reduce using rule 39 (binary)]
+    $default  reduce using rule 39 (binary)
+
+
+state 78
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   40       | binary '<' binary .
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    'G'       [reduce using rule 40 (binary)]
+    'L'       [reduce using rule 40 (binary)]
+    'E'       [reduce using rule 40 (binary)]
+    'N'       [reduce using rule 40 (binary)]
+    $default  reduce using rule 40 (binary)
+
+
+state 79
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   45       | binary '&' binary .
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    'G'       [reduce using rule 45 (binary)]
+    'L'       [reduce using rule 45 (binary)]
+    'E'       [reduce using rule 45 (binary)]
+    'N'       [reduce using rule 45 (binary)]
+    $default  reduce using rule 45 (binary)
+
+
+state 80
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   46       | binary '|' binary .
+   47       | binary . '^' binary
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    '&'  shift, and go to state 59
+    '^'  shift, and go to state 61
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    'G'       [reduce using rule 46 (binary)]
+    'L'       [reduce using rule 46 (binary)]
+    'E'       [reduce using rule 46 (binary)]
+    'N'       [reduce using rule 46 (binary)]
+    $default  reduce using rule 46 (binary)
+
+
+state 81
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+   47       | binary '^' binary .
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    '&'  shift, and go to state 59
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    'G'       [reduce using rule 47 (binary)]
+    'L'       [reduce using rule 47 (binary)]
+    'E'       [reduce using rule 47 (binary)]
+    'N'       [reduce using rule 47 (binary)]
+    $default  reduce using rule 47 (binary)
+
+
+state 82
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   41       | binary 'G' binary .
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    '&'  shift, and go to state 59
+    '|'  shift, and go to state 60
+    '^'  shift, and go to state 61
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    '+'       [reduce using rule 41 (binary)]
+    '-'       [reduce using rule 41 (binary)]
+    '*'       [reduce using rule 41 (binary)]
+    '/'       [reduce using rule 41 (binary)]
+    '%'       [reduce using rule 41 (binary)]
+    '>'       [reduce using rule 41 (binary)]
+    '<'       [reduce using rule 41 (binary)]
+    '&'       [reduce using rule 41 (binary)]
+    '|'       [reduce using rule 41 (binary)]
+    '^'       [reduce using rule 41 (binary)]
+    'G'       [reduce using rule 41 (binary)]
+    'L'       [reduce using rule 41 (binary)]
+    'E'       [reduce using rule 41 (binary)]
+    'N'       [reduce using rule 41 (binary)]
+    $default  reduce using rule 41 (binary)
+
+
+state 83
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   42       | binary 'L' binary .
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    '&'  shift, and go to state 59
+    '|'  shift, and go to state 60
+    '^'  shift, and go to state 61
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    '+'       [reduce using rule 42 (binary)]
+    '-'       [reduce using rule 42 (binary)]
+    '*'       [reduce using rule 42 (binary)]
+    '/'       [reduce using rule 42 (binary)]
+    '%'       [reduce using rule 42 (binary)]
+    '>'       [reduce using rule 42 (binary)]
+    '<'       [reduce using rule 42 (binary)]
+    '&'       [reduce using rule 42 (binary)]
+    '|'       [reduce using rule 42 (binary)]
+    '^'       [reduce using rule 42 (binary)]
+    'G'       [reduce using rule 42 (binary)]
+    'L'       [reduce using rule 42 (binary)]
+    'E'       [reduce using rule 42 (binary)]
+    'N'       [reduce using rule 42 (binary)]
+    $default  reduce using rule 42 (binary)
+
+
+state 84
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   43       | binary 'E' binary .
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    '&'  shift, and go to state 59
+    '|'  shift, and go to state 60
+    '^'  shift, and go to state 61
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    '+'       [reduce using rule 43 (binary)]
+    '-'       [reduce using rule 43 (binary)]
+    '*'       [reduce using rule 43 (binary)]
+    '/'       [reduce using rule 43 (binary)]
+    '%'       [reduce using rule 43 (binary)]
+    '>'       [reduce using rule 43 (binary)]
+    '<'       [reduce using rule 43 (binary)]
+    '&'       [reduce using rule 43 (binary)]
+    '|'       [reduce using rule 43 (binary)]
+    '^'       [reduce using rule 43 (binary)]
+    'G'       [reduce using rule 43 (binary)]
+    'L'       [reduce using rule 43 (binary)]
+    'E'       [reduce using rule 43 (binary)]
+    'N'       [reduce using rule 43 (binary)]
+    $default  reduce using rule 43 (binary)
+
+
+state 85
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   44       | binary 'N' binary .
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    '&'  shift, and go to state 59
+    '|'  shift, and go to state 60
+    '^'  shift, and go to state 61
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    '+'       [reduce using rule 44 (binary)]
+    '-'       [reduce using rule 44 (binary)]
+    '*'       [reduce using rule 44 (binary)]
+    '/'       [reduce using rule 44 (binary)]
+    '%'       [reduce using rule 44 (binary)]
+    '>'       [reduce using rule 44 (binary)]
+    '<'       [reduce using rule 44 (binary)]
+    '&'       [reduce using rule 44 (binary)]
+    '|'       [reduce using rule 44 (binary)]
+    '^'       [reduce using rule 44 (binary)]
+    'G'       [reduce using rule 44 (binary)]
+    'L'       [reduce using rule 44 (binary)]
+    'E'       [reduce using rule 44 (binary)]
+    'N'       [reduce using rule 44 (binary)]
+    $default  reduce using rule 44 (binary)
+
+
+state 86
+
+   33 binary: Identifier '(' optional_argument_list ')' .
+
+    $default  reduce using rule 33 (binary)
+
+
+state 87
+
+   52 argument_list: argument_list ',' . binary
+
+    Identifier  shift, and go to state 38
+    Constant    shift, and go to state 39
+    '('         shift, and go to state 41
+
+    binary  go to state 88
+
+
+state 88
+
+   34 binary: binary . '+' binary
+   35       | binary . '-' binary
+   36       | binary . '*' binary
+   37       | binary . '/' binary
+   38       | binary . '%' binary
+   39       | binary . '>' binary
+   40       | binary . '<' binary
+   41       | binary . 'G' binary
+   42       | binary . 'L' binary
+   43       | binary . 'E' binary
+   44       | binary . 'N' binary
+   45       | binary . '&' binary
+   46       | binary . '|' binary
+   47       | binary . '^' binary
+   52 argument_list: argument_list ',' binary .
+
+    '+'  shift, and go to state 52
+    '-'  shift, and go to state 53
+    '*'  shift, and go to state 54
+    '/'  shift, and go to state 55
+    '%'  shift, and go to state 56
+    '>'  shift, and go to state 57
+    '<'  shift, and go to state 58
+    '&'  shift, and go to state 59
+    '|'  shift, and go to state 60
+    '^'  shift, and go to state 61
+    'G'  shift, and go to state 62
+    'L'  shift, and go to state 63
+    'E'  shift, and go to state 64
+    'N'  shift, and go to state 65
+
+    $default  reduce using rule 52 (argument_list)
