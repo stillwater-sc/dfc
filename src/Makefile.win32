@@ -1,0 +1,29 @@
+# Makefile
+!include <win32.mak>
+
+all:		dfc.exe
+
+OBJS		= parser.obj lexer.obj main.obj
+
+	
+dfc.exe:	$(OBJS)
+		$(link) $(debug) $(conflags) -out:dfc.exe $(conlibs) lsapi32.lib
+
+.c.obj:
+		$(cc) $(debug) $(cflags) $(cvars) $*.c
+
+lexer.c:	domain-C.l
+		flex domain-C.l
+		cp lex.yy.c lexer.c
+
+parser.c:	domain-C.y
+		bison -d -v domain-C.y
+		cp domain-C.tab.c parser.c
+		cmp -s domain-C.tab.h tok.h || cp domain-C.tab.h tok.h
+
+lexer.obj domainC.obj main.obj	: heading.h
+
+lexer.obj main.obj		: tok.h
+
+clean:
+	rm -f *.o *~ lexer.c lex.yy.c parser.c tok.h domain-C.tab.c domain-C.tab.h domain-C.output dfc
